@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    <style type="text/css">
+    #al2792_modal h1 {
+        margin:0px;
+    }
+    #al2792_modal p {
+        font-size:0.7em;
+    }
+    #al2792_modal input {
+        font-size:1em;        
+        -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    -webkit-box-shadow: 0px 0px 20px #000;
+	    -moz-box-shadow: 0px 0px 20px #000;
+        margin: 10px 10px 0px 0px;
+    }
+    #al2792_modal {
+
+        width: 300px;
+        display: none; /*--hidden by default--*/
+        color: #fff;
+        opacity: 0.9;
+	    background: #000;
+	    padding: 20px;
+	    float: left;
+	    font-size: 1.2em;
+	    position: fixed;
+	    top: 10%; left: 10%;
+	    z-index: 99999;
+	    /*--CSS3 Box Shadows--*/
+	    -webkit-box-shadow: 0px 0px 20px #000;
+	    -moz-box-shadow: 0px 0px 20px #000;
+	    box-shadow: 0px 0px 20px #000;
+	    /*--CSS3 Rounded Corners--*/
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+    }
+    #al2792_modalbackground { 
+    	display: none; /*--hidden by default--*/
+	    background: #000;
+	    position: fixed; left: 0; top: 0;
+	    width: 100%; height: 100%;
+	    opacity: .90;
+	    z-index: 9999;
+    }
+    /*--Making IE6 Understand Fixed Positioning--*/
+    *html #al2792_modalbackground {
+	    position: absolute;
+    }
+    *html #al2792_modal {
+	    position: absolute;
+    }
+    </style>
+    <script type="text/javascript" language="javascript">
+        function getCookie(name) {
+            var dc = document.cookie;
+            var cname = name + "=";
+            if (dc.length > 0) {
+                begin = dc.indexOf(cname);
+                if (begin != -1) {
+                    begin += cname.length;
+                    end = dc.indexOf(";", begin);
+                    if (end == -1) end = dc.length;
+                    return unescape(dc.substring(begin, end));
+                }
+            }
+            return null;
+        }
+        function setCookie(name, value) {
+            var expires = new Date();
+            expires.setTime(expires.getTime() + (1000 * 60 * 60 * 24 * 360)); // 360 days ahead
+            document.cookie = name + "=" + escape(value) + "; path=/" + ((expires == null) ? "" : "; expires=" + expires.toGMTString());
+        }
+        $(document).ready(function () {
+
+            var cookie = getCookie("al2792_accessToken");
+
+            if (cookie === 'true') return true;
+
+            $("body").append('<div id="al2792_modalbackground"></div><div id="al2792_modal"><form><h1>alot of weirdos <br/>out there...</h1><p>... so to keep the bad guys out, you\'d understand if we ask you to asnwer a question about us before looking at our blog. You just need to answer this question <strong>once</strong>.</p><p>We promise.</p><label for="al2792_password">What is our lil one\'s name?</label><input id="al2792_password" name="al2792_password" type="text" /><input id="al2792_submit" name="al2792_submit" value="answer" type="submit" /></form></div>'); 
+            
+            var secretAnswer = "some_weak_password_please";
+            var modal = $("#al2792_modal");
+            var modalBackground = $("#al2792_modalbackground");
+            var passwordinput = $("#al2792_password");
+            var passwordSubmit = $("#al2792_submit");
+
+            modalBackground.show();
+            modal.show();
+
+            var originalOffset = modal.offset().left;
+            modal.css('left', originalOffset);
+
+            passwordSubmit.click(function () {
+                if (passwordinput.val().toLowerCase() === secretAnswer) {
+                    modal.fadeOut('slow');
+                    modalBackground.fadeOut('fast');
+                    setCookie("al2792_accessToken", "true");
+                    return false;
+                }
+                else {
+                    modal.animate({ left: originalOffset - 10 }, 20)
+                        .animate({ left: originalOffset + 10 }, 20)
+                        .animate({ left: originalOffset - 7 }, 20)
+                        .animate({ left: originalOffset + 7 }, 20)
+                        .animate({ left: originalOffset - 5 }, 30)
+                        .animate({ left: originalOffset + 5 }, 30);
+                    passwordinput.focus();
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    Slightly sensitive information.
+</body>
+</html>
