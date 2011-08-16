@@ -84,7 +84,9 @@
 
             $("body").append('<div id="al2792_modalbackground"></div><div id="al2792_modal"><form><h1>alot of weirdos <br/>out there...</h1><p>... so to keep the bad guys out, you\'d understand if we ask you to asnwer a question about us before looking at our blog. You just need to answer this question <strong>once</strong>.</p><p>We promise.</p><label for="al2792_password">What is our lil one\'s name?</label><input id="al2792_password" name="al2792_password" type="text" /><input id="al2792_submit" name="al2792_submit" value="answer" type="submit" /></form></div>'); 
             
-            var secretAnswer = "some_weak_password_please";
+            var secretAnswer1 = "some_weak_password_please";
+            var secretAnswer2 = "another_weak_password_please";
+
             var modal = $("#al2792_modal");
             var modalBackground = $("#al2792_modalbackground");
             var passwordinput = $("#al2792_password");
@@ -97,7 +99,7 @@
             modal.css('left', originalOffset);
 
             passwordSubmit.click(function () {
-                if (passwordinput.val().toLowerCase() === secretAnswer) {
+                if (passwordinput.val().toLowerCase() === secretAnswer1 || passwordinput.val().toLowerCase() === secretAnswer2) {
                     modal.fadeOut('slow');
                     modalBackground.fadeOut('fast');
                     setCookie("al2792_accessToken", "true");
